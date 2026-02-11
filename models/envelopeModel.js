@@ -15,6 +15,10 @@ const EnvelopeSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    description: {
+      type: String,
+      required: false,
+    },
     insta_reel: {
       type: String,
       required: false,
