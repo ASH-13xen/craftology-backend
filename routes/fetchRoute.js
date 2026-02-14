@@ -6,6 +6,9 @@ import {
   getResin,
   getScrapbooks,
   getWorkshops,
+  // --- NEW IMPORTS ---
+  getTorans,
+  getTags,
 } from "../controllers/fetchController.js";
 
 const router = express.Router();
@@ -19,5 +22,10 @@ router.get("/gaddis", getGaddis);
 router.get("/resin", getResin);
 router.get("/scrapbooks", getScrapbooks);
 router.get("/workshops", getWorkshops);
+
+// --- NEW ROUTES ---
+// IMPORTANT: This creates the endpoint /api/torans and /api/tags
+router.get("/torans", getTorans);
+router.get("/tags", getTags);
 
 export default router;
