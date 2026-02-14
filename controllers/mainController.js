@@ -5,6 +5,9 @@ import Gaddi from "../models/gaddiModel.js";
 import Resin from "../models/resinModel.js";
 import Scrapbook from "../models/scrapbookModel.js";
 import Workshop from "../models/workshopModel.js";
+// --- ADDED THESE IMPORTS ---
+import Toran from "../models/toranModel.js";
+import Tag from "../models/tagModel.js";
 
 // Map URL slugs to actual Model Objects
 const models = {
@@ -14,6 +17,10 @@ const models = {
   resin: Resin,
   scrapbook: Scrapbook,
   workshop: Workshop,
+  // --- ADDED THESE MAPPINGS ---
+  // The keys here MUST match the endpoint used in frontend (e.g. "/torans" -> "torans")
+  torans: Toran,
+  tags: Tag,
 };
 
 // --- Controller Functions ---
@@ -21,13 +28,16 @@ const models = {
 // 1. Add Data (POST)
 export const addData = async (req, res) => {
   try {
-    const { type } = req.params; // e.g., "coin" or "envelope"
+    const { type } = req.params; // This will be "tags" or "torans" based on your URL
     const Model = models[type];
 
     if (!Model) {
-      return res
-        .status(400)
-        .json({ success: false, message: `Invalid category: ${type}` });
+      return (
+        res
+          .status(400)
+          // This is the error you were seeing. Now it will find the model!
+          .json({ success: false, message: `Invalid category: ${type}` })
+      );
     }
 
     // Create the new entry using the data from the body
@@ -43,7 +53,7 @@ export const addData = async (req, res) => {
   }
 };
 
-// 2. Get Data (GET) - Optional helper to see your data
+// 2. Get Data (GET)
 export const getData = async (req, res) => {
   try {
     const { type } = req.params;

@@ -52,6 +52,6 @@ const ToranSchema = new mongoose.Schema(
 );
 
 // Prevent model overwrite error in Next.js
-const Toran = mongoose.models.Toran || mongoose.model("Tag", ToranSchema);
+const Toran = mongoose.models.Toran || mongoose.model("Toran", ToranSchema);
 
 export default Toran;
