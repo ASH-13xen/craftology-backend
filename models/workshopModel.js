@@ -21,7 +21,7 @@ const WorkshopSchema = new mongoose.Schema(
       required: [true, "Please provide a time"],
     },
     price: {
-      type: Number,
+      type: String,
       required: [true, "Please provide a price"],
     },
     locationName: {
@@ -40,6 +40,7 @@ const WorkshopSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please provide an image URL"],
     },
+
     mapEmbedUrl: {
       type: String,
       required: [true, "Please provide the map embed URL"],
