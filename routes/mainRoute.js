@@ -1,5 +1,5 @@
 import express from "express";
-import { addData, getData } from "../controllers/mainController.js";
+import { addData, getData, updateData, deleteData } from "../controllers/mainController.js";
 
 const router = express.Router();
 
@@ -9,5 +9,7 @@ const router = express.Router();
 
 router.post("/:type", addData); // Create
 router.get("/:type", getData); // Read
+router.put("/:type/:id", updateData); // Update
+router.delete("/:type/:id", deleteData); // Delete
 
 export default router;

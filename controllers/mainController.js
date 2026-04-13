@@ -72,3 +72,61 @@ export const getData = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+// 3. Update Data (PUT)
+export const updateData = async (req, res) => {
+  try {
+    const { type, id } = req.params;
+    const Model = models[type];
+
+    if (!Model) {
+      return res
+        .status(400)
+        .json({ success: false, message: `Invalid category: ${type}` });
+    }
+
+    const updatedData = await Model.findByIdAndUpdate(id, req.body, {
+      new: true, // Return the modified document rather than the original
+      runValidators: true, // Validate the update operation against the model's schema
+    });
+
+    if (!updatedData) {
+      return res.status(404).json({ success: false, message: "Item not found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: `Successfully updated item in ${type}`,
+      data: updatedData,
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// 4. Delete Data (DELETE)
+export const deleteData = async (req, res) => {
+  try {
+    const { type, id } = req.params;
+    const Model = models[type];
+
+    if (!Model) {
+      return res
+        .status(400)
+        .json({ success: false, message: `Invalid category: ${type}` });
+    }
+
+    const deletedData = await Model.findByIdAndDelete(id);
+
+    if (!deletedData) {
+      return res.status(404).json({ success: false, message: "Item not found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: `Successfully deleted item from ${type}`,
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
